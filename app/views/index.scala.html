@@ -4,9 +4,23 @@
 
 	<div>
 	    <center>
-	        <h1>あ、チーズ牛丼中盛りツユダクで</h1>
-	        <a href="http://twitter.com/share?url=http://uhugyudon.herokuapp.com&text=あ、チーズ牛丼中盛りツユダクで" onclick="window.open(this.href, 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;">Tweet!!</a>
+	        <h3>あ、チーズ牛丼中盛りツユダクで</h3>
+	        @message
+	        <a href="http://twitter.com/share?url=http://uhugyudon.herokuapp.com&text=あ、チーズ牛丼中盛りツユダクで...///" onclick="window.open(this.href, 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;">Tweet!!</a>
 	    </center>
+	</div>
+	<div>
+		<form action="/dinner" method="post">
+			<select id="action" name="action">
+				<option value="" selected></option>
+				<option value="insert">食べる</option>
+				<option value="update">変更</option>
+				<option value="delete">戻す</option>
+			</select>
+			<input type="submit" value="決定">
+		</form>
+	</div>
+	<div id="result">
 	</div>
 
 }
