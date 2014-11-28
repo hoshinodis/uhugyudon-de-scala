@@ -9,6 +9,7 @@ import play.mvc.*;
 
 import views.html.*;
 
+import java.util.Date;
 import java.util.List;
 
 import static play.data.Form.form;
@@ -30,11 +31,12 @@ public class Application extends Controller {
 			gyudon.id = Long.valueOf(1);
 			//gyudon.id = GyudonRepository.getMaxId().getId() + 1L;
 			gyudon.name = "hogehuga";
-			gyudon.resister_dt = "2014/12/21";
+			gyudon.create_at = new Date();
+			gyudon.update_at = new Date();
 			JPA.em().persist(gyudon);
 			firstGyudon = gyudon;
 		}
-	    System.out.println(firstGyudon.getId() + ":" + firstGyudon.getName() + ":" + firstGyudon.getResister_dt());
+	    System.out.println(firstGyudon.getId() + ":" + firstGyudon.getName() + ":" + firstGyudon.getUpdate_at());
 
 		//firstGyudon.name = "betumei";
 		//JPA.em().persist(firstGyudon);
@@ -43,7 +45,7 @@ public class Application extends Controller {
 
 		//List<Gyudon> gyudons = (List<Gyudon>) GyudonRepository.findById(0L);
 
-        return ok(index.render(firstGyudon.getId() + ":" + firstGyudon.getName() + ":" + firstGyudon.getResister_dt(), form(GyudonForm.class)));
+        return ok(index.render(firstGyudon.getId() + ":" + firstGyudon.getName() + ":" + firstGyudon.getUpdate_at(), form(GyudonForm.class)));
     }
 
 	@Transactional(value = "default")
@@ -56,12 +58,14 @@ public class Application extends Controller {
 				gyudon.id = data.id;
 				//gyudon.id = GyudonRepository.getMaxId().getId() + 1L;
 				gyudon.name = data.name;
-				gyudon.resister_dt = "2014/12/21";
+				gyudon.create_at = new Date();
+				gyudon.update_at = new Date();
 				JPA.em().persist(gyudon);
 			}else if (data.action.equals("update")){
 				Gyudon gyudon = JPA.em().find(Gyudon.class, data.id);
 				gyudon.name = data.name;
-				JPA.em().persist(gyudon);
+				gyudon.update_at = new Date();
+				JPA.em().merge(gyudon);
 			}else if (data.action.equals("delete")){
 				Gyudon gyudon = JPA.em().find(Gyudon.class, data.id);
 				JPA.em().remove(gyudon);

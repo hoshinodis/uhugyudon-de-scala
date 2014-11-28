@@ -1,6 +1,7 @@
 package models.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "gyudon")
@@ -18,7 +19,9 @@ public class Gyudon {
     
     public String name;
     
-    public String resister_dt;
+    public Date create_at;
+
+    public Date update_at;
 
     //getter
     public Long getId() {
@@ -29,8 +32,12 @@ public class Gyudon {
         return name;
     }
 
-    public String getResister_dt() {
-        return resister_dt;
+    public Date getCreate_at() {
+        return create_at;
+    }
+
+    public Date getUpdate_at() {
+        return update_at;
     }
 
     //setter
@@ -42,7 +49,12 @@ public class Gyudon {
         this.name = name;
     }
 
-    public void setResister_dt(String resister_dt) {
-        this.resister_dt = resister_dt;
+    public void setCreate_at(Date create_at) {
+        this.create_at = create_at;
     }
+
+    public void setUpdate_at(Date update_at) {
+        this.update_at = update_at;
+    }
+
 }
