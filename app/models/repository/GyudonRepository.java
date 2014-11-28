@@ -22,8 +22,6 @@ public class GyudonRepository {
      * @return idList.get(0)
      *         Gyudon
      */
-
-
     public static Gyudon findById(Long id) {
         TypedQuery<Gyudon> gyudonQuery = JPA.em().createNamedQuery("Gyudon.findById", Gyudon.class).setParameter("id", id);
         List<Gyudon> idList = gyudonQuery.getResultList();
@@ -33,5 +31,12 @@ public class GyudonRepository {
 
     public static List<Gyudon> findAll() {
         return JPA.em().createNamedQuery( "Gyudon.findAll", Gyudon.class).getResultList();
+    }
+
+    public static Gyudon getMaxId() {
+        TypedQuery<Gyudon> gyudonQuery = JPA.em().createNamedQuery("Gyudon.getMaxId", Gyudon.class);
+        List<Gyudon> idList = gyudonQuery.getResultList();
+
+        return idList.get(0);
     }
 }
