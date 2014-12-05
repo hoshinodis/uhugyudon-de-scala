@@ -45,10 +45,11 @@ public class GyudonRepository {
                 .getResultList();
     }
 
-    public Gyudon getMaxId() {
+    public Gyudon findMaxId() {
         TypedQuery<Gyudon> gyudonQuery = em.createNamedQuery("Gyudon.getMaxId", Gyudon.class);
         List<Gyudon> idList = gyudonQuery.getResultList();
 
         return idList.get(0);
     }
+
 }

@@ -1,0 +1,13 @@
+@(message: String, menuForm: Form[models.form.MenuForm])
+@import helper._
+
+@main("牛丼食べたときに押すボタン メニュー") {
+<center>
+    @helper.form(action = routes.MenuController.create){
+    @(helper.inputText(field = menuForm("name")))
+    @(helper.inputText(field = menuForm("size")))
+    @(helper.inputText(field = menuForm("topping")))
+    <input type="submit">
+    }
+</center>
+}

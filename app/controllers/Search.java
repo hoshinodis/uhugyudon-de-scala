@@ -32,7 +32,7 @@ public class Search extends Controller {
             }else{
                 System.out.println("ない");
             }
-            System.out.println(repo.getMaxId().getName());
+            System.out.println(repo.findMaxId().getName());
         }
         return ok(search.render("", sf));
     }

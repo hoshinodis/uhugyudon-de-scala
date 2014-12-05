@@ -3,6 +3,7 @@ package controllers;
 import models.entity.Gyudon;
 import models.form.GyudonForm;
 //import models.repository.GyudonRepository;
+import models.repository.GyudonRepository;
 import play.data.Form;
 import play.db.jpa.Transactional;
 import play.db.jpa.JPA;
@@ -13,6 +14,7 @@ import views.html.*;
 import java.util.Date;
 
 import static play.data.Form.form;
+import static play.db.jpa.JPA.em;
 
 
 public class Application extends Controller {
@@ -20,7 +22,7 @@ public class Application extends Controller {
 	//@Transactional(value="default",readOnly=true)
 	@Transactional(value = "default")
 	public static Result index() {
-		Gyudon firstGyudon = JPA.em().find(Gyudon.class, 1L);
+		Gyudon firstGyudon = em().find(Gyudon.class, 1L);
 		if(firstGyudon == null){
 			Gyudon gyudon = new Gyudon();
 			gyudon.id = 1L;
@@ -28,7 +30,7 @@ public class Application extends Controller {
 			gyudon.name = "hogehuga";
 			gyudon.create_at = new Date();
 			gyudon.update_at = new Date();
-			JPA.em().persist(gyudon);
+			em().persist(gyudon);
 			firstGyudon = gyudon;
 		}
 		System.out.println(firstGyudon.getId() + ":" + firstGyudon.getName() + ":" + firstGyudon.getUpdate_at());
@@ -40,7 +42,9 @@ public class Application extends Controller {
 
 		//List<Gyudon> gyudons = (List<Gyudon>) GyudonRepository.findById(0L);
 
-		return ok(index.render(firstGyudon.getId() + ":" + firstGyudon.getName() + ":" + firstGyudon.getUpdate_at(), form(GyudonForm.class)));
+		GyudonRepository gyudonRepo = new GyudonRepository();
+
+		return ok(index.render("今までにチーズ牛丼中盛りツユダクを食べた人は " + gyudonRepo.findAll().size() +" 人です", form(GyudonForm.class)));
 	}
 
 	@Transactional(value = "default")
@@ -54,16 +58,15 @@ public class Application extends Controller {
 				//gyudon.id = GyudonRepository.getMaxId().getId() + 1L;
 				gyudon.name = data.name;
 				gyudon.create_at = new Date();
-				gyudon.update_at = new Date();
-				JPA.em().persist(gyudon);
+				em().persist(gyudon);
 			}else if (data.action.equals("update")){
-				Gyudon gyudon = JPA.em().find(Gyudon.class, data.id);
+				Gyudon gyudon = em().find(Gyudon.class, data.id);
 				gyudon.name = data.name;
 				gyudon.update_at = new Date();
-				JPA.em().merge(gyudon);
+				em().merge(gyudon);
 			}else if (data.action.equals("delete")){
-				Gyudon gyudon = JPA.em().find(Gyudon.class, data.id);
-				JPA.em().remove(gyudon);
+				Gyudon gyudon = em().find(Gyudon.class, data.id);
+				em().remove(gyudon);
 			}
 
 			String msg = "you gyudoned: " + data.name + "さんがチーズ牛丼中盛りツユダクを" + data.action;

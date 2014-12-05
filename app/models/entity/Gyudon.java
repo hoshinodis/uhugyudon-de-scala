@@ -17,7 +17,7 @@ import java.util.Date;
 @NamedQueries(value = {
         @NamedQuery(name = "Gyudon.findById", query = "SELECT a FROM Gyudon a WHERE a.id = :id"),
         @NamedQuery(name = "Gyudon.findByName", query = "SELECT a FROM Gyudon a WHERE a.name LIKE :name"),
-        //@NamedQuery(name = "Gyudon.findByResisterDt", query = "SELECT a FROM gyudon a WHERE a.resister_dt = :resisterDt"),
+        @NamedQuery(name = "Gyudon.findByCreateAt", query = "SELECT a FROM Gyudon a WHERE a.create_at = :createAt"),
         @NamedQuery(name = "Gyudon.getMaxId", query = "SELECT MAX(a) FROM Gyudon a"),
         @NamedQuery(name = "Gyudon.findAll", query = "SELECT a FROM Gyudon a")
 })
