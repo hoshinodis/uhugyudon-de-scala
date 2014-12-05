@@ -1,37 +1,34 @@
-@(message: String, form1: Form[Application.GyudonForm])
+@(message: String, gyudonForm: Form[models.form.GyudonForm])
 @import helper._
 
 @main("牛丼食べたときに押すボタン") {
 <center>
-	<div>
+    <div>
 
-	        <h3>あ、チーズ牛丼中盛りツユダクで</h3>
-	        @message
-	        <!--a href="http://twitter.com/share?url=http://uhugyudon.herokuapp.com&text=あ、チーズ牛丼中盛りツユダクで...///" onclick="window.open(this.href, 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;">Tweet!!</a-->
+        <h3>あ、チーズ牛丼中盛りツユダクで</h3>
+        @message
+        <!--a href="http://twitter.com/share?url=http://uhugyudon.herokuapp.com&text=あ、チーズ牛丼中盛りツユダクで...///" onclick="window.open(this.href, 'twitter_tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;">Tweet!!</a-->
 
-	</div>
-@helper.form(action = routes.Application.send){
-	@(helper.inputText(field = form1("id")))
-	@(helper.inputText(field = form1("name")))
-	@select(
-	field = form1("action")
-	, options = options(("insert" -> "食べる"), ("update" -> "変更"), ("delete" -> "戻す"))
-	)
-	<input type="submit">
-	}
-	<!--div>
-		<form action="/dinner" method="post">
-	<select id="service" name="service">
-		<option value="" selected></option>
-		<option value="insert">食べる</option>
-		<option value="update">変更</option>
-		<option value="delete">戻す</option>
-	</select>
-			<input type="submit" value="決定">
-		</form>
-	</div-->
+    </div>
+    @helper.form(action = routes.Application.send){
+        @(helper.inputText(field = gyudonForm("id")))
+        @(helper.inputText(field = gyudonForm("name")))
+        @select(
+            field = gyudonForm("action")
+            , options = options(("insert" -> "食べる"), ("update" -> "変更"), ("delete" -> "戻す"))
+        )
+        <input type="submit">
+    }
+    <!--div>
+        <form action="/dinner" method="post">
+    <select id="service" name="service">
+        <option value="" selected></option>
+        <option value="insert">食べる</option>
+        <option value="update">変更</option>
+        <option value="delete">戻す</option>
+    </select>
+            <input type="submit" value="決定">
+        </form>
+    </div-->
 </center>
-	<div id="result">
-	</div>
-
 }

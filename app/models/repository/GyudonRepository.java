@@ -1,8 +1,7 @@
 package models.repository;
 
 import models.entity.Gyudon;
-import org.hibernate.annotations.Entity;
-import org.hibernate.annotations.Table;
+
 import play.db.jpa.JPA;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -22,19 +21,29 @@ public class GyudonRepository {
      * @return idList.get(0)
      *         Gyudon
      */
-    public static Gyudon findById(Long id) {
-        TypedQuery<Gyudon> gyudonQuery = JPA.em().createNamedQuery("Gyudon.findById", Gyudon.class).setParameter("id", id);
+    private EntityManager em;
+    public GyudonRepository() {
+        em = JPA.em();
+    }
+
+    public Gyudon findById(Long id) {
+        TypedQuery<Gyudon> gyudonQuery = em.createNamedQuery("Gyudon.findById", Gyudon.class).setParameter("id", id);
         List<Gyudon> idList = gyudonQuery.getResultList();
 
         return idList.get(0);
     }
 
-    public static List<Gyudon> findAll() {
-        return JPA.em().createNamedQuery( "Gyudon.findAll", Gyudon.class).getResultList();
+    public List<Gyudon> findByName(String name) {
+        TypedQuery<Gyudon> gyudonQuery = em.createNamedQuery("Gyudon.findByName", Gyudon.class).setParameter("name", name);
+        return gyudonQuery.getResultList();
     }
 
-    public static Gyudon getMaxId() {
-        TypedQuery<Gyudon> gyudonQuery = JPA.em().createNamedQuery("Gyudon.getMaxId", Gyudon.class);
+    public List<Gyudon> findAll() {
+        return em.createNamedQuery("Gyudon.findAll", Gyudon.class).getResultList();
+    }
+
+    public Gyudon getMaxId() {
+        TypedQuery<Gyudon> gyudonQuery = em.createNamedQuery("Gyudon.getMaxId", Gyudon.class);
         List<Gyudon> idList = gyudonQuery.getResultList();
 
         return idList.get(0);

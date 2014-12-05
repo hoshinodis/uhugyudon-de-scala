@@ -1,0 +1,12 @@
+@(message: String, searchForm: Form[models.form.SearchForm])
+@import helper._
+
+@main("牛丼検索") {
+
+    <p>牛丼検索</p>
+    @helper.form(action = routes.Search.index){
+        @helper.inputText(field = searchForm("searchString"),args = '_label -> "検索文字")
+        <input type="submit" value="検索">
+    }
+
+}

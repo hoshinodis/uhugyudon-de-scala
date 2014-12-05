@@ -1,7 +1,8 @@
 package controllers;
 
 import models.entity.Gyudon;
-import models.repository.GyudonRepository;
+import models.form.GyudonForm;
+//import models.repository.GyudonRepository;
 import play.data.Form;
 import play.db.jpa.Transactional;
 import play.db.jpa.JPA;
@@ -10,25 +11,19 @@ import play.mvc.*;
 import views.html.*;
 
 import java.util.Date;
-import java.util.List;
 
 import static play.data.Form.form;
 
 
 public class Application extends Controller {
-	public static class GyudonForm {
-		public Long id;
-		public String name;
-		public String action;
-	}
 
 	//@Transactional(value="default",readOnly=true)
 	@Transactional(value = "default")
-    public static Result index() {
+	public static Result index() {
 		Gyudon firstGyudon = JPA.em().find(Gyudon.class, 1L);
 		if(firstGyudon == null){
 			Gyudon gyudon = new Gyudon();
-			gyudon.id = Long.valueOf(1);
+			gyudon.id = 1L;
 			//gyudon.id = GyudonRepository.getMaxId().getId() + 1L;
 			gyudon.name = "hogehuga";
 			gyudon.create_at = new Date();
@@ -36,7 +31,7 @@ public class Application extends Controller {
 			JPA.em().persist(gyudon);
 			firstGyudon = gyudon;
 		}
-	    System.out.println(firstGyudon.getId() + ":" + firstGyudon.getName() + ":" + firstGyudon.getUpdate_at());
+		System.out.println(firstGyudon.getId() + ":" + firstGyudon.getName() + ":" + firstGyudon.getUpdate_at());
 
 		//firstGyudon.name = "betumei";
 		//JPA.em().persist(firstGyudon);
@@ -45,8 +40,8 @@ public class Application extends Controller {
 
 		//List<Gyudon> gyudons = (List<Gyudon>) GyudonRepository.findById(0L);
 
-        return ok(index.render(firstGyudon.getId() + ":" + firstGyudon.getName() + ":" + firstGyudon.getUpdate_at(), form(GyudonForm.class)));
-    }
+		return ok(index.render(firstGyudon.getId() + ":" + firstGyudon.getName() + ":" + firstGyudon.getUpdate_at(), form(GyudonForm.class)));
+	}
 
 	@Transactional(value = "default")
 	public static Result send() {

@@ -1,4 +1,4 @@
-name := """uhugyudon-de-scala"""
+name := "uhugyudon-de-scala"
 
 version := "1.0-SNAPSHOT"
 
@@ -8,8 +8,9 @@ scalaVersion := "2.11.1"
 
 libraryDependencies ++= Seq(
   javaJdbc,
-  javaJpa,
-  "org.hibernate" % "hibernate-entitymanager" % "3.6.9.Final",
+  //javaEbean,
+  javaJpa.exclude("org.hibernate.javax.persistence", "hibernate-jpa-2.0-api"),
+  "org.hibernate" % "hibernate-entitymanager" % "4.3.6.Final",
   "mysql" % "mysql-connector-java" % "5.1.34",
   cache,
   javaWs
