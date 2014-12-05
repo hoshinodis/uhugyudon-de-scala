@@ -24,17 +24,15 @@ public class Search extends Controller {
         Form<SearchForm> sf = form(SearchForm.class).bindFromRequest();
         String searchName = sf.get().searchString;
         System.out.println(searchName);
-        if (searchName != null) {
-            //GyudonRepository repo = new GyudonRepository();
-            //List<Gyudon> gList = repo.findByName(searchName);
-
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
-            EntityManager em = emf.createEntityManager();
-            EntityTransaction et = em.getTransaction();
-            et.begin();
-            Query query = em.createQuery("select g from gyudon g");
-            List<Gyudon> gl = query.getResultList();
-
+        if (searchName != null && !searchName.isEmpty()) {
+            GyudonRepository repo = new GyudonRepository();
+            List<Gyudon> gList = repo.findByName(searchName);
+            if (gList.size() > 0) {
+                System.out.println(gList.get(0).getName());
+            }else{
+                System.out.println("ない");
+            }
+            System.out.println(repo.getMaxId().getName());
         }
         return ok(search.render("", sf));
     }

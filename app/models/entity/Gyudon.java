@@ -13,13 +13,13 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Entity
-@Table(name = "gyudon")
+@Table(name = "Gyudon")
 @NamedQueries(value = {
-        //@NamedQuery(name = "Gyudon.findById", query = "SELECT a FROM gyudon a WHERE a.id = :id")
-        //@NamedQuery(name = "Gyudon.findByName", query = "SELECT a FROM gyudon a WHERE a.name = :name")
+        @NamedQuery(name = "Gyudon.findById", query = "SELECT a FROM Gyudon a WHERE a.id = :id"),
+        @NamedQuery(name = "Gyudon.findByName", query = "SELECT a FROM Gyudon a WHERE a.name LIKE :name"),
         //@NamedQuery(name = "Gyudon.findByResisterDt", query = "SELECT a FROM gyudon a WHERE a.resister_dt = :resisterDt"),
-        //@NamedQuery(name = "Gyudon.getMaxId", query = "SELECT max(a.id) FROM gyudon a"),
-        //@NamedQuery(name = "Gyudon.findAll", query = "SELECT a FROM gyudon a")
+        @NamedQuery(name = "Gyudon.getMaxId", query = "SELECT MAX(a) FROM Gyudon a"),
+        @NamedQuery(name = "Gyudon.findAll", query = "SELECT a FROM Gyudon a")
 })
 public class Gyudon {
     @Id

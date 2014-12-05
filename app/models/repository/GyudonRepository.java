@@ -27,19 +27,22 @@ public class GyudonRepository {
     }
 
     public Gyudon findById(Long id) {
-        TypedQuery<Gyudon> gyudonQuery = em.createNamedQuery("Gyudon.findById", Gyudon.class).setParameter("id", id);
+        TypedQuery<Gyudon> gyudonQuery = em.createNamedQuery("Gyudon.findById", Gyudon.class)
+                .setParameter("id", id);
         List<Gyudon> idList = gyudonQuery.getResultList();
 
         return idList.get(0);
     }
 
     public List<Gyudon> findByName(String name) {
-        TypedQuery<Gyudon> gyudonQuery = em.createNamedQuery("Gyudon.findByName", Gyudon.class).setParameter("name", name);
+        TypedQuery<Gyudon> gyudonQuery = em.createNamedQuery("Gyudon.findByName", Gyudon.class)
+                .setParameter("name", "%" + name.replace("%", "\\%").replace("_","\\_") + "%");
         return gyudonQuery.getResultList();
     }
 
     public List<Gyudon> findAll() {
-        return em.createNamedQuery("Gyudon.findAll", Gyudon.class).getResultList();
+        return em.createNamedQuery("Gyudon.findAll", Gyudon.class)
+                .getResultList();
     }
 
     public Gyudon getMaxId() {
